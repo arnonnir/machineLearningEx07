@@ -103,4 +103,26 @@ public class Hw7Main {
 
 	}
 
+	public static double calcAvgDistance(Instances dataSet1, Instances dataSet2) {
+		int numberOfAttributes = dataSet1.numAttributes(); // check if need minus one cause class value
+		int numberOfInstances = dataSet1.numInstances();
+		double sumOfDistances = 0;
+
+		for(int i = 0; i < numberOfInstances; i++) {
+			Instance instanceFromDataSet1 = dataSet1.instance(i);
+			Instance instanceFromDataSet2 = dataSet2.instance(i);
+			double tempDistance = 0;
+
+			for(int j = 0; j < numberOfAttributes; j++) {
+				double currentAttributeValue1 = instanceFromDataSet1.value(j);
+				double currentAttributeValue2 = instanceFromDataSet2.value(j);
+				tempDistance += Math.pow(currentAttributeValue1 - currentAttributeValue2, 2);
+			}
+
+			sumOfDistances += Math.sqrt(tempDistance);
+		}
+
+		return sumOfDistances / (double)numberOfInstances;
+	}
+
 }
